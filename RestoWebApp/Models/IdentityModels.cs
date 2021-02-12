@@ -30,5 +30,10 @@ namespace RestoWebApp.Models
         {
             return new ApplicationDbContext();
         }
+
+        // Set tables in database
+        public DbSet<Owner> Owners { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<FoodItem> FoodItems { get; set; }
     }
 }
