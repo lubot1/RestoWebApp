@@ -17,6 +17,7 @@ namespace RestoWebApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/OwnerData/GetOwners
+        [ResponseType(typeof(OwnerDto))]
         [HttpGet]
         public IEnumerable<OwnerDto> GetOwners()
         {
@@ -30,6 +31,7 @@ namespace RestoWebApp.Controllers
                     OwnerID = Owner.OwnerID,
                     OwnerFirstName = Owner.OwnerFirstName,
                     OwnerLastName = Owner.OwnerLastName
+
                 };
                 OwnerDtos.Add(NewOwner);
             }
@@ -37,20 +39,31 @@ namespace RestoWebApp.Controllers
         }
 
         // GET: api/OwnerData/GetOwner/5
-        [ResponseType(typeof(Owner))]
+        [ResponseType(typeof(OwnerDto))]
         [HttpGet]
         public IHttpActionResult GetOwner(int id)
         {
-            Owner owner = db.Owners.Find(id);
-            if (owner == null)
+            Owner Owner = db.Owners.Find(id);
+            OwnerDto SelectedOwner = new OwnerDto
+            {
+                OwnerID = Owner.OwnerID,
+                OwnerFirstName = Owner.OwnerFirstName,
+                OwnerLastName = Owner.OwnerLastName,
+                OwnerEmail = Owner.OwnerEmail,
+                OwnerAddress = Owner.OwnerAddress,
+                OwnerPhone = Owner.OwnerPhone
+
+            };
+
+            if (Owner == null)
             {
                 return NotFound();
             }
 
-            return Ok(owner);
+            return Ok(SelectedOwner);
         }
 
-        // PUT: api/Owners/UpdateOwner/5
+        // POST: api/Owners/UpdateOwner/5
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateOwner(int id, [FromBody]Owner owner)
@@ -89,21 +102,22 @@ namespace RestoWebApp.Controllers
         // POST: api/Owners/AddOwner
         [ResponseType(typeof(Owner))]
         [HttpPost]
-        public IHttpActionResult AddOwner([FromBody]Owner owner)
+        public IHttpActionResult AddOwner([FromBody]Owner NewOwner)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Owners.Add(owner);
+            db.Owners.Add(NewOwner);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = owner.OwnerID }, owner);
+            return Ok(NewOwner.OwnerID);
         }
 
-        // DELETE: api/Owners/5
+        // Post: api/Owners/DeleteOwner/5
         [ResponseType(typeof(Owner))]
+        [HttpPost]
         public IHttpActionResult DeleteOwner(int id)
         {
             Owner owner = db.Owners.Find(id);

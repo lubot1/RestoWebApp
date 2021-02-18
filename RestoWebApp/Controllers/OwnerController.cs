@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -34,7 +35,19 @@ namespace RestoWebApp.Controllers
         // GET: Owner/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            string url = "OwnerData/GetOwner/" + id;
+            HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                OwnerDto SelectedOwner = httpResponse.Content.ReadAsAsync<OwnerDto>().Result;
+                return View(SelectedOwner);
+
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // GET: Owner/List 
@@ -42,6 +55,7 @@ namespace RestoWebApp.Controllers
         {
             string url = "ownerdata/getowners";
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
             if (httpResponse.IsSuccessStatusCode)
             {
                 IEnumerable<OwnerDto> OwnerList = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
@@ -61,16 +75,18 @@ namespace RestoWebApp.Controllers
 
         // POST: Owner/Create
         [HttpPost]
-        public ActionResult Create(Owner OwnerInfo)
+        public ActionResult Create(Owner NewOwner)
         {
-            string url = "ownerdata/create";
-            HttpContent content = new StringContent(jss.Serialize(OwnerInfo));
+            string url = "ownerdata/AddOwner";
+            
+            HttpContent content = new StringContent(jss.Serialize(NewOwner));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
-
-            if(httpResponse.IsSuccessStatusCode)
+            Debug.WriteLine(jss.Serialize(NewOwner));
+            if (httpResponse.IsSuccessStatusCode)
             {
                 int OwnerID = httpResponse.Content.ReadAsAsync<int>().Result;
+                
                 return RedirectToAction("Details", new { id = OwnerID });
             }
             else
@@ -82,45 +98,79 @@ namespace RestoWebApp.Controllers
         // GET: Owner/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            string url = "OwnerData/GetOwner/" + id;
+            HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
+            if(httpResponse.IsSuccessStatusCode)
+            {
+                OwnerDto SelectedOwner = httpResponse.Content.ReadAsAsync<OwnerDto>().Result;
+                return View(SelectedOwner);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST: Owner/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Owner SelectedOwner)
         {
-            try
-            {
-                // TODO: Add update logic here
+            string url = "ownerdata/updateowner/" + id;
+            HttpContent content = new StringContent(jss.Serialize(SelectedOwner));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (httpResponse.IsSuccessStatusCode)
             {
-                return View();
+                int OwnerID = httpResponse.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details", new { id = OwnerID });
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
 
-        // GET: Owner/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Owner/DeleteConfirm/5
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "OwnerData/GetOwner/" + id;
+            HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
+            if(httpResponse.IsSuccessStatusCode)
+            {
+                OwnerDto SelectedOwner = httpResponse.Content.ReadAsAsync<OwnerDto>().Result;
+                return View(SelectedOwner);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST: Owner/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "OwnerData/deleteowner/" + id;
+            HttpContent content = new StringContent("");
+            HttpResponseMessage httpResponse = client.PostAsync(url,content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if(httpResponse.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
             }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
     }
 }

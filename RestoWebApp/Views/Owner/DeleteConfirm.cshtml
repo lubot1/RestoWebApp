@@ -1,0 +1,11 @@
+﻿@model RestoWebApp.Models.OwnerDto
+
+@{
+    ViewBag.Title = "Confirm Delete";
+}
+
+<h2>Confirm Deletion?</h2>
+<form action="../Delete/@Model.OwnerID" method="post">
+    <input type="submit" value="Confirm!" />
+</form>
+

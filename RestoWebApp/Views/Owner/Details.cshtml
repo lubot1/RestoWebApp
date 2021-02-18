@@ -1,0 +1,57 @@
+﻿@model RestoWebApp.Models.OwnerDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.OwnerFirstName @Model.OwnerLastName Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OwnerPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerPhone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OwnerID }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

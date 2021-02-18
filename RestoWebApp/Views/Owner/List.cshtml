@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RestoWebApp.Models.OwnerDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerLastName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerLastName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OwnerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OwnerID }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.OwnerID })
+        </td>
+    </tr>
+}
+
+</table>
