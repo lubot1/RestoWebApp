@@ -41,18 +41,26 @@ namespace RestoWebApp.Controllers
             return RestaurantDtos;
         }
 
-        // GET: api/RestaurantData/GetRestaurant/5
-        [ResponseType(typeof(Restaurant))]
+        // GET: api/RestaurantData/FindRestaurant/5
+        [ResponseType(typeof(RestaurantDto))]
         [HttpGet]
-        public IHttpActionResult GetRestaurant(int id)
+        public IHttpActionResult FindRestaurant(int id)
         {
-            Restaurant restaurant = db.Restaurants.Find(id);
-            if (restaurant == null)
+            Restaurant RestaurantInfo = db.Restaurants.Find(id);
+            RestaurantDto SelectedRestaurant = new RestaurantDto
+            {
+                RestaurantID = RestaurantInfo.RestaurantID,
+                RestaurantAddress = RestaurantInfo.RestaurantAddress,
+                RestaurantPhone = RestaurantInfo.RestaurantPhone,
+                OwnerID = RestaurantInfo.OwnerID
+            };
+
+            if (SelectedRestaurant == null)
             {
                 return NotFound();
             }
 
-            return Ok(restaurant);
+            return Ok(SelectedRestaurant);
         }
 
         // POST: api/RestaurantData/UpdateRestaurant/5
@@ -91,24 +99,24 @@ namespace RestoWebApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/RestaurantData
+        // POST: api/RestaurantData/AddRestaurant
         [ResponseType(typeof(Restaurant))]
         [HttpPost]
-        public IHttpActionResult AddRestaurant([FromBody]Restaurant restaurant)
+        public IHttpActionResult AddRestaurant([FromBody]Restaurant NewRestaurant)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Restaurants.Add(restaurant);
+            db.Restaurants.Add(NewRestaurant);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = restaurant.RestaurantID }, restaurant);
+            return CreatedAtRoute("DefaultApi", new { id = NewRestaurant.RestaurantID }, NewRestaurant);
         }
 
-        // DELETE: api/RestaurantData/5
-        [ResponseType(typeof(Restaurant))]
+        // POST: api/RestaurantData/DeleteRestaurant/5
+        [HttpPost]
         public IHttpActionResult DeleteRestaurant(int id)
         {
             Restaurant restaurant = db.Restaurants.Find(id);
@@ -120,7 +128,7 @@ namespace RestoWebApp.Controllers
             db.Restaurants.Remove(restaurant);
             db.SaveChanges();
 
-            return Ok(restaurant);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
