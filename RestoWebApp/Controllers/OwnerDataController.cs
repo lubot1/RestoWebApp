@@ -16,6 +16,10 @@ namespace RestoWebApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Get a list of Owners from the database using a data transfer object
+        /// </summary>
+        /// <returns>IEnumerable of many data transfer objects</returns>
         // GET: api/OwnerData/GetOwners
         [ResponseType(typeof(OwnerDto))]
         [HttpGet]
@@ -38,6 +42,12 @@ namespace RestoWebApp.Controllers
             return OwnerDtos;
         }
 
+        /// <summary>
+        /// Retrieves a specific owner using the id provided
+        /// </summary>
+        /// <todo>Insert restaurants owned info</todo>
+        /// <param name="id"></param>
+        /// <returns>HTTP Ok status with an owner object</returns>
         // GET: api/OwnerData/GetOwner/5
         [ResponseType(typeof(OwnerDto))]
         [HttpGet]
@@ -63,6 +73,13 @@ namespace RestoWebApp.Controllers
             return Ok(SelectedOwner);
         }
 
+        /// <summary>
+        /// Edits information about a specific owner provided using the provided id
+        /// </summary>
+        /// <todo>Add ability to change which restaurants are owned</todo>
+        /// <param name="id"></param>
+        /// <param name="owner"></param>
+        /// <returns>HTTP status codes</returns>
         // POST: api/Owners/UpdateOwner/5
         [ResponseType(typeof(void))]
         [HttpPost]
@@ -99,6 +116,11 @@ namespace RestoWebApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Inserts a new owner into the database
+        /// </summary>
+        /// <param name="NewOwner"></param>
+        /// <returns>OK status with owner object</returns>
         // POST: api/Owners/AddOwner
         [ResponseType(typeof(Owner))]
         [HttpPost]
@@ -115,6 +137,11 @@ namespace RestoWebApp.Controllers
             return Ok(NewOwner.OwnerID);
         }
 
+        /// <summary>
+        /// Removes an owner from the database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>OK status with owner object</returns>
         // Post: api/Owners/DeleteOwner/5
         [ResponseType(typeof(Owner))]
         [HttpPost]

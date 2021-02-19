@@ -16,6 +16,10 @@ namespace RestoWebApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        ///  Generates a list of restaurants in the database
+        /// </summary>
+        /// <returns>IEnumerable<RestaurantDto></returns>
         // GET: api/RestaurantData/GetRestaurants
         [HttpGet]
         public IEnumerable<RestaurantDto> GetRestaurants()
@@ -42,6 +46,11 @@ namespace RestoWebApp.Controllers
             return RestaurantDtos;
         }
 
+        /// <summary>
+        /// Retrieves restaurant info from the database using a data transfer object
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Data transfer object with restaurant info</returns>
         // GET: api/RestaurantData/FindRestaurant/5
         [ResponseType(typeof(RestaurantDto))]
         [HttpGet]
@@ -63,7 +72,21 @@ namespace RestoWebApp.Controllers
 
             return Ok(SelectedRestaurant);
         }
+        // Having a little trouble getting info using a bridging table, I need to do more research on this
+        //[HttpGet]
+        //public IHttpActionResult FindRestaurantOwners(int id)
+        //{
+        //   List<Owner> RestaurantOwners = db.Owners
+        //        .Where(o => o.Restaurants.Any(r => r.RestaurantID))
 
+        //}
+
+        /// <summary>
+        /// Handles changes to restaurant information
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="restaurant"></param>
+        /// <returns>Http Status Code</returns>
         // POST: api/RestaurantData/UpdateRestaurant/5
         [ResponseType(typeof(void))]
         [HttpPost]
@@ -100,6 +123,11 @@ namespace RestoWebApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Retrieves information about a new restaurant and inserts a new Restaurant into the database
+        /// </summary>
+        /// <param name="NewRestaurant"></param>
+        /// <returns>Restaurant ID</returns>
         // POST: api/RestaurantData/AddRestaurant
         [ResponseType(typeof(Restaurant))]
         [HttpPost]
@@ -116,6 +144,11 @@ namespace RestoWebApp.Controllers
             return Ok(NewRestaurant.RestaurantID);
         }
 
+        /// <summary>
+        /// Deletes a restaurant from the database using its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>HTTP OK result</returns>
         // POST: api/RestaurantData/DeleteRestaurant/5
         [HttpPost]
         public IHttpActionResult DeleteRestaurant(int id)

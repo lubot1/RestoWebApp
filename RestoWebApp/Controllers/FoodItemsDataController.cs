@@ -16,6 +16,10 @@ namespace RestoWebApp.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        /// <summary>
+        /// Generate a list of food items in the database using data transfer objects
+        /// </summary>
+        /// <returns>IEnumerable of FoodItemDto's</returns>
         // GET: api/FoodItemsData/GetFoodItems
         [HttpGet]
         public IEnumerable<FoodItemDto> GetFoodItems()
@@ -38,6 +42,11 @@ namespace RestoWebApp.Controllers
             return FoodItemDtos;
         }
 
+        /// <summary>
+        /// Find a specific food item using an id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>OK status with FoodItemDto attached</returns>
         // GET: api/FoodItemsData/FindFoodItem/5
         [ResponseType(typeof(FoodItemDto))]
         [HttpGet]
@@ -61,6 +70,12 @@ namespace RestoWebApp.Controllers
             return Ok(SelectedFoodItem);
         }
 
+        /// <summary>
+        /// Updates food item entry in database using id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="foodItem"></param>
+        /// <returns>Http status code</returns>
         // POST: api/FoodItemsData/UpdateFoodItem/5
         [ResponseType(typeof(void))]
         [HttpPost]
@@ -97,6 +112,11 @@ namespace RestoWebApp.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Insert a food item to the database with info provided by a form
+        /// </summary>
+        /// <param name="foodItem"></param>
+        /// <returns>OK status with fooditem ID provided</returns>
         // POST: api/FoodItemsData/AddFoodItem
         [ResponseType(typeof(FoodItem))]
         [HttpPost]
@@ -113,6 +133,11 @@ namespace RestoWebApp.Controllers
             return Ok(foodItem.FoodItemID);
         }
 
+        /// <summary>
+        /// Removes a food item from the database using an id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>OK status with removed food item</returns>
         // POST: api/FoodItemsData/DeleteFoodItem/5
         [ResponseType(typeof(FoodItem))]
         [HttpPost]

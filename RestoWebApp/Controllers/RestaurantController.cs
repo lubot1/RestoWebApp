@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using RestoWebApp.Models;
+using RestoWebApp.Models.ViewModels;
 
 namespace RestoWebApp.Controllers
 {
@@ -113,13 +114,30 @@ namespace RestoWebApp.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            // Instantiate class to collect necessary edit info
+            UpdateRestaurant ViewModel = new UpdateRestaurant();
+            // Send a request to findrestaurant method to pull info
             string url = "restaurantdata/findrestaurant/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 RestaurantDto SelectedRestaurant = httpResponse.Content.ReadAsAsync<RestaurantDto>().Result;
-                return View(SelectedRestaurant);
+                ViewModel.Restaurant = SelectedRestaurant;
+
+                // Find owners of the restaurant and add to the view model
+                //url = "restaurantdata/findrestaurantowners/" + id;
+                //httpResponse = client.GetAsync(url).Result;
+                //IEnumerable<OwnerDto> RestaurantOwners = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
+                //ViewModel.RestaurantOwners = RestaurantOwners;
+
+                // Find a list of all owners for 
+                url = "ownerdata/getowners/" + id;
+                httpResponse = client.GetAsync(url).Result;
+                IEnumerable<OwnerDto> OwnersList = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
+                ViewModel.OwnersList = OwnersList;
+
+                return View(ViewModel);
             }
             else
             {
