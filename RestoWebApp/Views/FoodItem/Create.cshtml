@@ -1,4 +1,4 @@
-﻿@model RestoWebApp.Models.Restaurant
+﻿@model IEnumerable<RestoWebApp.Models.RestaurantDto>
 
 @{
     ViewBag.Title = "Create";
@@ -6,18 +6,25 @@
 
 <h2>Create</h2>
 
-<form method="post" action=""> 
+<form method="post" action="">
+    <label for="FoodItemName">Food Item Name</label>
     <input type="text" name="FoodItemName" />
+    <label for="FoodItemDesc">Description</label>
     <input type="text" name="FoodItemDesc" />
+    <label for="FoodItemPrice">Food Item Price</label>
     <input type="text" name="FoodItemPrice" />
+    <label for="RestaurantID">Restaurant</label>
     <select name="RestaurantID">
-        @foreach(var restaurant in Restaurants)
-        <option value=""
+        @foreach (var Restaurant in Model)
+        {
+            <option value="@Restaurant.RestaurantID">@Restaurant.RestaurantName</option>
+        }
     </select>
+    <input type="submit" value="Create new item" />
 </form>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List")
 </div>
 
 @section Scripts {

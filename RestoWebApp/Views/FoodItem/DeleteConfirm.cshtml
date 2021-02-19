@@ -1,0 +1,11 @@
+﻿@model RestoWebApp.Models.FoodItemDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete this?</h2>
+<form action="../Delete/@Model.FoodItemID" method="post">
+    <input type="submit" value="Confirm!" />
+</form>
+

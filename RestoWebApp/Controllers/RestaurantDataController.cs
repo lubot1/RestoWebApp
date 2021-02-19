@@ -113,7 +113,7 @@ namespace RestoWebApp.Controllers
             db.Restaurants.Add(NewRestaurant);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = NewRestaurant.RestaurantID }, NewRestaurant);
+            return Ok(NewRestaurant.RestaurantID);
         }
 
         // POST: api/RestaurantData/DeleteRestaurant/5

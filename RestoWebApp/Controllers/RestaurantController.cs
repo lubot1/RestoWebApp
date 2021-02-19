@@ -68,7 +68,18 @@ namespace RestoWebApp.Controllers
         // GET: Restaurant/Create
         public ActionResult Create()
         {
-            return View();
+            string url = "ownerdata/getowners";
+            HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                IEnumerable<OwnerDto> OwnerList = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
+                return View(OwnerList);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST: Restaurant/Create
@@ -80,7 +91,14 @@ namespace RestoWebApp.Controllers
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url,content).Result;
 
-            if(httpResponse.IsSuccessStatusCode)
+            // Below is an idea to create a conenction in the ownersrestaurant bridging table
+            //string url = "restaurantdata/associaterestaurantowner";
+            //HttpContent content = new StringContent(jss.Serialize(NewRestaurant.));
+            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            //HttpResponseMessage httpResponse2 = client.PostAsync(url, content).Result;
+
+            //if (httpResponse.IsSuccessStatusCode && httpResponse2.IsSuccessStatusCode)
+            if (httpResponse.IsSuccessStatusCode)
             {
                 int RestaurantID = httpResponse.Content.ReadAsAsync<int>().Result;
                 return RedirectToAction("Details", new { id = RestaurantID });
@@ -150,7 +168,7 @@ namespace RestoWebApp.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            string url = "OwnerData/deleterestaurant/" + id;
+            string url = "restaurantdata/deleterestaurant/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -50,7 +51,7 @@ namespace RestoWebApp.Controllers
         // GET: FoodItem/Details/5
         public ActionResult Details(int id)
         {
-            string url = "fooditemdata/findfooditem/" + id;
+            string url = "fooditemsdata/findfooditem/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if(httpResponse.IsSuccessStatusCode)
@@ -85,13 +86,14 @@ namespace RestoWebApp.Controllers
         [HttpPost]
         public ActionResult Create(FoodItem NewFoodItem)
         {
-            string url = "fooditemdata/addfooditem";
+            string url = "fooditemsdata/addfooditem";
             HttpContent content = new StringContent(jss.Serialize(NewFoodItem));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
-
+            Debug.WriteLine(jss.Serialize(NewFoodItem));
             if (httpResponse.IsSuccessStatusCode)
             {
+                
                 int FoodItemID = httpResponse.Content.ReadAsAsync<int>().Result;
                 return RedirectToAction("Details", new { id = FoodItemID });
             }
@@ -104,7 +106,7 @@ namespace RestoWebApp.Controllers
         // GET: FoodItem/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "fooditemdata/findfooditem/" + id;
+            string url = "fooditemsdata/findfooditem/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if (httpResponse.IsSuccessStatusCode)
@@ -122,7 +124,7 @@ namespace RestoWebApp.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FoodItem SelectedFoodItem)
         {
-            string url = "fooditemdata/updatefooditem/" + id;
+            string url = "fooditemsdata/updatefooditem/" + id;
             HttpContent content = new StringContent(jss.Serialize(SelectedFoodItem));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
@@ -139,23 +141,33 @@ namespace RestoWebApp.Controllers
         }
 
         // GET: FoodItem/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "fooditemsdata/findfooditem/" + id;
+            HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                FoodItemDto SelectedFoodItem = httpResponse.Content.ReadAsAsync<FoodItemDto>().Result;
+                return View(SelectedFoodItem);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST: FoodItem/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FoodItem SelectedFoodItem)
         {
-            string url = "fooditemdata/deletefooditem/" + id;
+            string url = "fooditemsdata/deletefooditem/" + id;
             HttpContent content = new StringContent(jss.Serialize(SelectedFoodItem));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                int FoodItemID = httpResponse.Content.ReadAsAsync<int>().Result;
                 return RedirectToAction("List");
             }
             else

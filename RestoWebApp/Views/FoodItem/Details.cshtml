@@ -1,0 +1,50 @@
+﻿@model RestoWebApp.Models.FoodItemDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FoodItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Restaurant.RestaurantName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Restaurant.RestaurantName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodItemDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodItemDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodItemPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FoodItemPrice)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FoodItemID }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

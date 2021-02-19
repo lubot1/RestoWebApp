@@ -1,51 +1,27 @@
-﻿@model RestoWebApp.Models.Restaurant
+﻿@model IEnumerable<RestoWebApp.Models.OwnerDto>
 
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
+<form method="post" action="">
+    <label for="RestaurantName">Restaurant Name</label>
+    <input type="text" name="RestaurantName" />
+    <label for="RestaurantAddress">Restaurant Address</label>
+    <input type="text" name="RestaurantAddress" />
+    <label for="RestaurantPhone">Restaurant Phone</label>
+    <input type="text" name="RestaurantPhone" />
+    <label for="OwnerID">Owner</label>
+    <select name="OwnerID">
+        @foreach (var Owner in Model)
+        {
+            <option value="@Owner.OwnerID">@Owner.OwnerFirstName @Owner.OwnerLastName</option>
+        }
+    </select>
+    <input type="submit" value="Create new item" />
+</form>
 
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Restaurant</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.RestaurantName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RestaurantName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RestaurantName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RestaurantAddress, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RestaurantAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RestaurantAddress, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RestaurantPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RestaurantPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RestaurantPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
 
 <div>
     @Html.ActionLink("Back to List", "List")

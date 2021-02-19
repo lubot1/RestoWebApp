@@ -288,6 +288,11 @@
     <Content Include="Views\FoodItem\List.cshtml" />
     <Content Include="Views\FoodItem\Create.cshtml" />
     <Content Include="Views\Restaurant\Details.cshtml" />
+    <Content Include="Views\FoodItem\Details.cshtml" />
+    <Content Include="Views\FoodItem\Edit.cshtml" />
+    <Content Include="Views\FoodItem\DeleteConfirm.cshtml" />
+    <Content Include="Views\Restaurant\DeleteConfirm.cshtml" />
+    <Content Include="Views\Restaurant\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

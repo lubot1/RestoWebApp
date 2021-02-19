@@ -51,6 +51,7 @@ namespace RestoWebApp.Controllers
             }
             FoodItemDto SelectedFoodItem = new FoodItemDto
             {
+                Restaurant = FoodItemInfo.Restaurant,
                 FoodItemID = FoodItemInfo.FoodItemID,
                 FoodItemName = FoodItemInfo.FoodItemName,
                 FoodItemDesc = FoodItemInfo.FoodItemDesc,
@@ -109,7 +110,7 @@ namespace RestoWebApp.Controllers
             db.FoodItems.Add(foodItem);
             db.SaveChanges();
 
-            return Ok(foodItem);
+            return Ok(foodItem.FoodItemID);
         }
 
         // POST: api/FoodItemsData/DeleteFoodItem/5
