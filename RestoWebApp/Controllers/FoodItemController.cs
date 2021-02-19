@@ -34,7 +34,7 @@ namespace RestoWebApp.Controllers
         // GET: FoodItem/List
         public ActionResult List()
         {
-            string url = "fooditemdata/getfooditems";
+            string url = "fooditemsdata/getfooditems";
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if (httpResponse.IsSuccessStatusCode)
@@ -67,7 +67,18 @@ namespace RestoWebApp.Controllers
         // GET: FoodItem/Create
         public ActionResult Create()
         {
-            return View();
+            string url = "restaurantdata/getrestaurants";
+            HttpResponseMessage httpResponse = client.GetAsync(url).Result;
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                IEnumerable<RestaurantDto> RestaurantList = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantDto>>().Result;
+                return View(RestaurantList);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         // POST: FoodItem/Create

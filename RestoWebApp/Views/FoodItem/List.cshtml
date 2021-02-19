@@ -1,0 +1,51 @@
+﻿@model IEnumerable<RestoWebApp.Models.FoodItemDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Restaurant.RestaurantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FoodItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FoodItemDesc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FoodItemPrice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Restaurant.RestaurantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FoodItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FoodItemDesc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FoodItemPrice)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FoodItemID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FoodItemID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FoodItemID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -196,6 +196,22 @@
     <Compile Include="Migrations\202102122113043_RestoApp.Designer.cs">
       <DependentUpon>202102122113043_RestoApp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102190132090_restaurantTableFix.cs" />
+    <Compile Include="Migrations\202102190132090_restaurantTableFix.Designer.cs">
+      <DependentUpon>202102190132090_restaurantTableFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190151557_MtoMRelationshipFix.cs" />
+    <Compile Include="Migrations\202102190151557_MtoMRelationshipFix.Designer.cs">
+      <DependentUpon>202102190151557_MtoMRelationshipFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190154147_typoFix.cs" />
+    <Compile Include="Migrations\202102190154147_typoFix.Designer.cs">
+      <DependentUpon>202102190154147_typoFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102190214222_OwnerModelFix.cs" />
+    <Compile Include="Migrations\202102190214222_OwnerModelFix.Designer.cs">
+      <DependentUpon>202102190214222_OwnerModelFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FoodItem.cs" />
@@ -267,11 +283,14 @@
     <Content Include="Views\Owner\Details.cshtml" />
     <Content Include="Views\Owner\Create.cshtml" />
     <Content Include="Views\Owner\DeleteConfirm.cshtml" />
+    <Content Include="Views\Restaurant\List.cshtml" />
+    <Content Include="Views\Restaurant\Create.cshtml" />
+    <Content Include="Views\FoodItem\List.cshtml" />
+    <Content Include="Views\FoodItem\Create.cshtml" />
+    <Content Include="Views\Restaurant\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\FoodItem\" />
-    <Folder Include="Views\Restaurant\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -289,6 +308,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202102122113043_RestoApp.resx">
       <DependentUpon>202102122113043_RestoApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190132090_restaurantTableFix.resx">
+      <DependentUpon>202102190132090_restaurantTableFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190151557_MtoMRelationshipFix.resx">
+      <DependentUpon>202102190151557_MtoMRelationshipFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190154147_typoFix.resx">
+      <DependentUpon>202102190154147_typoFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102190214222_OwnerModelFix.resx">
+      <DependentUpon>202102190214222_OwnerModelFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

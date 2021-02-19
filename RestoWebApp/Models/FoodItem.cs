@@ -33,6 +33,6 @@ namespace RestoWebApp.Models
         [DisplayName("Price")]
         public float FoodItemPrice { get; set; }
 
-        public int RestaurantID { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

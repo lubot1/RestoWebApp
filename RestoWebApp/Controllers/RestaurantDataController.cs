@@ -31,6 +31,7 @@ namespace RestoWebApp.Controllers
                 RestaurantDto NewRestaurant = new RestaurantDto
                 {
                     RestaurantID = Restaurant.RestaurantID,
+                    RestaurantName = Restaurant.RestaurantName,
                     RestaurantAddress = Restaurant.RestaurantAddress,
                     RestaurantPhone = Restaurant.RestaurantPhone
                 };
@@ -50,9 +51,9 @@ namespace RestoWebApp.Controllers
             RestaurantDto SelectedRestaurant = new RestaurantDto
             {
                 RestaurantID = RestaurantInfo.RestaurantID,
+                RestaurantName = RestaurantInfo.RestaurantName,
                 RestaurantAddress = RestaurantInfo.RestaurantAddress,
                 RestaurantPhone = RestaurantInfo.RestaurantPhone,
-                OwnerID = RestaurantInfo.OwnerID
             };
 
             if (SelectedRestaurant == null)

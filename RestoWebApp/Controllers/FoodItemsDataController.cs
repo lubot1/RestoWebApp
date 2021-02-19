@@ -21,12 +21,12 @@ namespace RestoWebApp.Controllers
         public IEnumerable<FoodItemDto> GetFoodItems()
         {
             List<FoodItem> FoodItems = db.FoodItems.ToList();
-
             List<FoodItemDto> FoodItemDtos = new List<FoodItemDto> { };
             foreach(var FoodItem in FoodItems)
             {
                 FoodItemDto NewFoodItem = new FoodItemDto
                 {
+                    Restaurant = FoodItem.Restaurant,
                     FoodItemID = FoodItem.FoodItemID,
                     FoodItemName = FoodItem.FoodItemName,
                     FoodItemDesc = FoodItem.FoodItemDesc,
@@ -109,7 +109,7 @@ namespace RestoWebApp.Controllers
             db.FoodItems.Add(foodItem);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = foodItem.FoodItemID }, foodItem);
+            return Ok(foodItem);
         }
 
         // POST: api/FoodItemsData/DeleteFoodItem/5

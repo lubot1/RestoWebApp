@@ -13,22 +13,22 @@ namespace RestoWebApp.Models
         [Key]
         public int RestaurantID { get; set; }
 
+        public string RestaurantName { get; set; }
+
         public string RestaurantAddress { get; set; }
 
         public string RestaurantPhone { get; set; }
 
-        [ForeignKey("Owner")]
-        public int OwnerID { get; set; }
-        public virtual Owner Owner { get; set; }
+        public ICollection<Owner> Owners { get; set; }
     }
     public class RestaurantDto
     {
         public int RestaurantID { get; set; }
+        [DisplayName("Restaurant Name")]
+        public string RestaurantName { get; set; }
         [DisplayName("Address")]
         public string RestaurantAddress { get; set; }
         [DisplayName("Phone Number")]
         public string RestaurantPhone { get; set; }
-
-        public int OwnerID { get; set; }
     }
 }
