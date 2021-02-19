@@ -10,5 +10,6 @@ Restaurant Web platform to allow restaurants to easily show off their food and r
 - [ ] Setup Authentication system properly
 - [ ] Connect the Owners and Restaurants tables as they have a many-to-many relationship
 - [ ] Add picture handling to food items table
+I ran into trouble making the updates work properly, I can pull up info from each table and pre-populate the edit forms but I have a problem actually putting those changes on the database.
 ## References
 While making this web application I referenced Christine Bittle's [Varsity Project MVP](https://github.com/christinebittle/varsity_mvp). I referenced the Controllers folder to setup my controllers, and the Models folder to setup my models so I could create my database successfully.
