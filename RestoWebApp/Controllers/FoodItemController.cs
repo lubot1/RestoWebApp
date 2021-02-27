@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using RestoWebApp.Models;
+using RestoWebApp.Models.ViewModels;
 
 namespace RestoWebApp.Controllers
 {
@@ -36,8 +37,9 @@ namespace RestoWebApp.Controllers
         public ActionResult List()
         {
             string url = "fooditemsdata/getfooditems";
+            
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
-
+            //Debug.WriteLine(httpResponse);
             if (httpResponse.IsSuccessStatusCode)
             {
                 IEnumerable<FoodItemDto> FoodItemList = httpResponse.Content.ReadAsAsync<IEnumerable<FoodItemDto>>().Result;
@@ -106,13 +108,22 @@ namespace RestoWebApp.Controllers
         // GET: FoodItem/Edit/5
         public ActionResult Edit(int id)
         {
+            UpdateFoodItem ViewModel = new UpdateFoodItem();
+
             string url = "fooditemsdata/findfooditem/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
                 FoodItemDto SelectedFoodItem = httpResponse.Content.ReadAsAsync<FoodItemDto>().Result;
-                return View(SelectedFoodItem);
+                ViewModel.FoodItem = SelectedFoodItem;
+
+                url = "restaurantdata/GetRestaurants";
+                httpResponse = client.GetAsync(url).Result;
+                IEnumerable<RestaurantDto> RestaurantList = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantDto>>().Result;
+                ViewModel.Restaurants = RestaurantList;
+
+                return View(ViewModel);
             }
             else
             {

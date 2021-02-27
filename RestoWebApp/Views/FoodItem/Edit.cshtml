@@ -1,10 +1,10 @@
-﻿@model RestoWebApp.Models.FoodItemDto
+﻿@model RestoWebApp.Models.ViewModels.UpdateFoodItem
 
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit @Model.FoodItemName</h2>
+<h2>Edit</h2>
 
 
 @using (Html.BeginForm())
@@ -15,32 +15,40 @@
     <h4>FoodItem</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.FoodItemID)
-    @Html.HiddenFor(model => model.Restaurant)
+    @Html.HiddenFor(model => model.FoodItem.FoodItemID)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.FoodItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.FoodItem.FoodItemName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FoodItemName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FoodItemName, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.FoodItem.FoodItemName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FoodItem.FoodItemName, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.FoodItemDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.FoodItem.FoodItemDesc, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FoodItemDesc, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FoodItemDesc, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.FoodItem.FoodItemDesc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FoodItem.FoodItemDesc, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.FoodItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.FoodItem.FoodItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.FoodItemPrice, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.FoodItemPrice, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.FoodItem.FoodItemPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FoodItem.FoodItemPrice, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <!--<div class="form-group">
+        <select name="FoodItem.RestaurantID">
+            @foreach(var Restaurant in Model.Restaurants)
+            {
+                <option value="@Restaurant.RestaurantID">@Restaurant.RestaurantName</option>
+            }
+        </select>
+    </div>-->
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -51,7 +59,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "List")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
