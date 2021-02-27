@@ -126,13 +126,14 @@ namespace RestoWebApp.Controllers
         {
             string url = "fooditemsdata/updatefooditem/" + id;
             HttpContent content = new StringContent(jss.Serialize(SelectedFoodItem));
+            Debug.WriteLine(jss.Serialize(SelectedFoodItem));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                int FoodItemID = httpResponse.Content.ReadAsAsync<int>().Result;
-                return RedirectToAction("Details", new { id = FoodItemID });
+                //int FoodItemID = httpResponse.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details", new { id = id });
             }
             else
             {
