@@ -35,5 +35,7 @@ namespace RestoWebApp.Models
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<FoodItem> FoodItems { get; set; }
+
+        public DbSet<OwnerxRestaurant> OwnerxRestaurants { get; set; }
     }
 }

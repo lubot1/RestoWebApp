@@ -73,6 +73,23 @@ namespace RestoWebApp.Controllers
             return Ok(SelectedOwner);
         }
 
+        public IHttpActionResult GetRestaurantsForOwner(int id)
+        {
+            IEnumerable<OwnerxRestaurant> OXRs = db.OwnerxRestaurants.
+                Where(oxr => oxr.RestaurantID == id)
+                .ToList();
+            List<RestaurantDto> restaurantDtos = new List<RestaurantDto> { };
+
+            foreach(var OXR in OXRs)
+            {
+                RestaurantDto Restaurant = new RestaurantDto { 
+                    RestaurantID = OXR.Restaurant.RestaurantID,
+                    RestaurantName = OXR.Restaurant.RestaurantName
+                };
+                restaurantDtos.Add(Restaurant);
+            }
+            return Ok(restaurantDtos);
+        }
         /// <summary>
         /// Edits information about a specific owner provided using the provided id
         /// </summary>

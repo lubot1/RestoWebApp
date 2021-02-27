@@ -19,7 +19,7 @@ namespace RestoWebApp.Models
 
         public string RestaurantPhone { get; set; }
 
-        public ICollection<Owner> Owners { get; set; }
+        
     }
     public class RestaurantDto
     {

@@ -208,9 +208,17 @@
     <Compile Include="Migrations\202102190154147_typoFix.Designer.cs">
       <DependentUpon>202102190154147_typoFix.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202102190214222_OwnerModelFix.cs" />
-    <Compile Include="Migrations\202102190214222_OwnerModelFix.Designer.cs">
-      <DependentUpon>202102190214222_OwnerModelFix.cs</DependentUpon>
+    <Compile Include="Migrations\202102262052247_FridayChange1.cs" />
+    <Compile Include="Migrations\202102262052247_FridayChange1.Designer.cs">
+      <DependentUpon>202102262052247_FridayChange1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102262053461_FridayChange2.cs" />
+    <Compile Include="Migrations\202102262053461_FridayChange2.Designer.cs">
+      <DependentUpon>202102262053461_FridayChange2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102262102104_FridayChange3.cs" />
+    <Compile Include="Migrations\202102262102104_FridayChange3.Designer.cs">
+      <DependentUpon>202102262102104_FridayChange3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,6 +226,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Owner.cs" />
+    <Compile Include="Models\OwnerxRestaurant.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\ViewModels\UpdateRestaurant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -324,8 +333,14 @@
     <EmbeddedResource Include="Migrations\202102190154147_typoFix.resx">
       <DependentUpon>202102190154147_typoFix.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202102190214222_OwnerModelFix.resx">
-      <DependentUpon>202102190214222_OwnerModelFix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202102262052247_FridayChange1.resx">
+      <DependentUpon>202102262052247_FridayChange1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102262053461_FridayChange2.resx">
+      <DependentUpon>202102262053461_FridayChange2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102262102104_FridayChange3.resx">
+      <DependentUpon>202102262102104_FridayChange3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

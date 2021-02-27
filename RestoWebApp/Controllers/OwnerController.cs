@@ -96,6 +96,7 @@ namespace RestoWebApp.Controllers
         }
 
         // GET: Owner/Edit/5
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             string url = "OwnerData/GetOwner/" + id;
@@ -123,8 +124,7 @@ namespace RestoWebApp.Controllers
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                int OwnerID = httpResponse.Content.ReadAsAsync<int>().Result;
-                return RedirectToAction("Details", new { id = OwnerID });
+                return RedirectToAction("Details", new { id = id });
             }
             else
             {

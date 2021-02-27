@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -114,8 +115,6 @@ namespace RestoWebApp.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            // Instantiate class to collect necessary edit info
-            UpdateRestaurant ViewModel = new UpdateRestaurant();
             // Send a request to findrestaurant method to pull info
             string url = "restaurantdata/findrestaurant/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
@@ -123,21 +122,8 @@ namespace RestoWebApp.Controllers
             if (httpResponse.IsSuccessStatusCode)
             {
                 RestaurantDto SelectedRestaurant = httpResponse.Content.ReadAsAsync<RestaurantDto>().Result;
-                ViewModel.Restaurant = SelectedRestaurant;
 
-                // Find owners of the restaurant and add to the view model
-                //url = "restaurantdata/findrestaurantowners/" + id;
-                //httpResponse = client.GetAsync(url).Result;
-                //IEnumerable<OwnerDto> RestaurantOwners = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
-                //ViewModel.RestaurantOwners = RestaurantOwners;
-
-                // Find a list of all owners for 
-                url = "ownerdata/getowners/" + id;
-                httpResponse = client.GetAsync(url).Result;
-                IEnumerable<OwnerDto> OwnersList = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
-                ViewModel.OwnersList = OwnersList;
-
-                return View(ViewModel);
+                return View(SelectedRestaurant);
             }
             else
             {
@@ -151,13 +137,14 @@ namespace RestoWebApp.Controllers
         {
             string url = "restaurantdata/updaterestaurant/" + id;
             HttpContent content = new StringContent(jss.Serialize(SelectedRestaurant));
+            Debug.WriteLine(jss.Serialize(SelectedRestaurant));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url, content).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                int RestaurantID = httpResponse.Content.ReadAsAsync<int>().Result;
-                return RedirectToAction("Details", new { id = RestaurantID });
+                //int RestaurantID = httpResponse.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details", new { id = id });
             }
             else
             {

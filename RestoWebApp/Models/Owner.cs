@@ -22,8 +22,6 @@ namespace RestoWebApp.Models
         public string OwnerAddress { get; set; }
 
         public string OwnerPhone { get; set; }
-
-        public ICollection<Restaurant> Restaurants { get; set; }
     }
     public class OwnerDto
     {
