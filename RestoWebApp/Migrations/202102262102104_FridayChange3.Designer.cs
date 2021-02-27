@@ -7,13 +7,13 @@ namespace RestoWebApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class OwnerModelFix : IMigrationMetadata
+    public sealed partial class FridayChange3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OwnerModelFix));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FridayChange3));
         
         string IMigrationMetadata.Id
         {
-            get { return "202102190214222_OwnerModelFix"; }
+            get { return "202102262102104_FridayChange3"; }
         }
         
         string IMigrationMetadata.Source

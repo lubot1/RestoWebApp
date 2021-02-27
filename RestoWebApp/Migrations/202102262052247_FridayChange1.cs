@@ -3,7 +3,7 @@ namespace RestoWebApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class OwnerModelFix : DbMigration
+    public partial class FridayChange1 : DbMigration
     {
         public override void Up()
         {
