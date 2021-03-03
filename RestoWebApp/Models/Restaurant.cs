@@ -30,5 +30,6 @@ namespace RestoWebApp.Models
         public string RestaurantAddress { get; set; }
         [DisplayName("Phone Number")]
         public string RestaurantPhone { get; set; }
+        public int OwnerID { get; set; }
     }
 }

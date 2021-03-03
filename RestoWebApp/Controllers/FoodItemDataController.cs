@@ -13,7 +13,7 @@ using RestoWebApp.Models;
 
 namespace RestoWebApp.Controllers
 {
-    public class FoodItemsDataController : ApiController
+    public class FoodItemDataController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

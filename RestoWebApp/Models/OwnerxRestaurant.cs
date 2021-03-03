@@ -19,7 +19,5 @@ namespace RestoWebApp.Models
         [ForeignKey("Restaurant")]
         public int RestaurantID { get; set; }
         public virtual Restaurant Restaurant { get; set; }
-
-        public bool Primary { get; set; }
     }
 }

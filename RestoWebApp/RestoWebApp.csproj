@@ -182,7 +182,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FoodItemController.cs" />
-    <Compile Include="Controllers\FoodItemsDataController.cs" />
+    <Compile Include="Controllers\FoodItemDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OwnerController.cs" />
@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202102270229071_FridayChange4.cs" />
     <Compile Include="Migrations\202102270229071_FridayChange4.Designer.cs">
       <DependentUpon>202102270229071_FridayChange4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103022339260_MondayChange1.cs" />
+    <Compile Include="Migrations\202103022339260_MondayChange1.Designer.cs">
+      <DependentUpon>202103022339260_MondayChange1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102270229071_FridayChange4.resx">
       <DependentUpon>202102270229071_FridayChange4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103022339260_MondayChange1.resx">
+      <DependentUpon>202103022339260_MondayChange1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

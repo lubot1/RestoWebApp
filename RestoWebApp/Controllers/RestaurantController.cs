@@ -86,23 +86,32 @@ namespace RestoWebApp.Controllers
 
         // POST: Restaurant/Create
         [HttpPost]
-        public ActionResult Create(Restaurant NewRestaurant)
+        public ActionResult Create(RestaurantDto NewRestaurantData)
         {
+            Restaurant NewRestaurant = new Restaurant
+            {
+                RestaurantID = NewRestaurantData.RestaurantID,
+                RestaurantAddress = NewRestaurantData.RestaurantAddress,
+                RestaurantName = NewRestaurantData.RestaurantName,
+                RestaurantPhone = NewRestaurantData.RestaurantPhone
+            };
+
             string url = "restaurantdata/addrestaurant";
             HttpContent content = new StringContent(jss.Serialize(NewRestaurant));
+            Debug.WriteLine(jss.Serialize(NewRestaurantData));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage httpResponse = client.PostAsync(url,content).Result;
 
-            // Below is an idea to create a conenction in the ownersrestaurant bridging table
-            //string url = "restaurantdata/associaterestaurantowner";
-            //HttpContent content = new StringContent(jss.Serialize(NewRestaurant.));
-            //content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            //HttpResponseMessage httpResponse2 = client.PostAsync(url, content).Result;
-
-            //if (httpResponse.IsSuccessStatusCode && httpResponse2.IsSuccessStatusCode)
             if (httpResponse.IsSuccessStatusCode)
             {
                 int RestaurantID = httpResponse.Content.ReadAsAsync<int>().Result;
+                NewRestaurantData.RestaurantID = RestaurantID;
+
+                url = "restaurantdata/associaterestaurantowner";
+                content = new StringContent(jss.Serialize(NewRestaurantData));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                httpResponse = client.PostAsync(url, content).Result;
+                //Debug.WriteLine(httpResponse);
                 return RedirectToAction("Details", new { id = RestaurantID });
             }
             else

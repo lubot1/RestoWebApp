@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -142,6 +143,24 @@ namespace RestoWebApp.Controllers
             db.SaveChanges();
 
             return Ok(NewRestaurant.RestaurantID);
+        }
+
+        [HttpPost]
+        public IHttpActionResult AssociateRestaurantOwner([FromBody] RestaurantDto NewRestaurantOwner)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            OwnerxRestaurant ownerxRestaurant = new OwnerxRestaurant
+            {
+                RestaurantID = NewRestaurantOwner.RestaurantID,
+                OwnerID = NewRestaurantOwner.OwnerID
+            };
+            db.OwnerxRestaurants.Add(ownerxRestaurant);
+            db.SaveChanges();
+
+            return Ok(ownerxRestaurant.RestaurantID);
         }
 
         /// <summary>
