@@ -43,6 +43,28 @@ namespace RestoWebApp.Controllers
             return FoodItemDtos;
         }
 
+        public IEnumerable<FoodItemDto> GetFoodItemsByRestaurant(int id)
+        {
+            List<FoodItem> FoodItems = db.FoodItems
+                .Where(fi => fi.RestaurantID == id)
+                .ToList();
+
+            List<FoodItemDto> FoodItemDtos = new List<FoodItemDto> { };
+            foreach (var FoodItem in FoodItems)
+            {
+                FoodItemDto NewFoodItem = new FoodItemDto
+                {
+                    Restaurant = FoodItem.Restaurant,
+                    FoodItemID = FoodItem.FoodItemID,
+                    FoodItemName = FoodItem.FoodItemName,
+                    FoodItemDesc = FoodItem.FoodItemDesc,
+                    FoodItemPrice = FoodItem.FoodItemPrice
+                };
+                FoodItemDtos.Add(NewFoodItem);
+            }
+
+            return FoodItemDtos;
+        }
         /// <summary>
         /// Find a specific food item using an id
         /// </summary>

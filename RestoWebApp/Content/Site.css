@@ -1,8 +1,20 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #E3E5E9;
 }
-
+.navbar {
+    background-color: #000000;
+}
+a {
+    color: #611C00;
+}
+    a:hover {
+        color: #000000;
+    }
+li a {
+    color: #E3E5E9;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -38,7 +38,8 @@ namespace RestoWebApp.Controllers
                     RestaurantID = Restaurant.RestaurantID,
                     RestaurantName = Restaurant.RestaurantName,
                     RestaurantAddress = Restaurant.RestaurantAddress,
-                    RestaurantPhone = Restaurant.RestaurantPhone
+                    RestaurantPhone = Restaurant.RestaurantPhone,
+                    RestaurantCategory = Restaurant.RestaurantCategory
                 };
                 // Add DTO to list then loop back
                 RestaurantDtos.Add(NewRestaurant);
@@ -47,6 +48,62 @@ namespace RestoWebApp.Controllers
             return RestaurantDtos;
         }
 
+        [HttpGet]
+        public IEnumerable<RestaurantDto> GetRestaurantsByCategory(int id)
+        {
+            // Create a new list to insert restaurants from database into
+            List<Restaurant> Restaurants = db.Restaurants
+                .Where(rc => rc.RestaurantCategoryID == id)
+                .ToList();
+            // Start a new list of restaurant data transfer objects
+            List<RestaurantDto> RestaurantDtos = new List<RestaurantDto> { };
+
+            foreach (var Restaurant in Restaurants)
+            {
+                // Loop through database and insert restaurant object attributes into DTO
+                RestaurantDto NewRestaurant = new RestaurantDto
+                {
+                    RestaurantID = Restaurant.RestaurantID,
+                    RestaurantName = Restaurant.RestaurantName,
+                    RestaurantAddress = Restaurant.RestaurantAddress,
+                    RestaurantPhone = Restaurant.RestaurantPhone,
+                    RestaurantCategory = Restaurant.RestaurantCategory
+                };
+                // Add DTO to list then loop back
+                RestaurantDtos.Add(NewRestaurant);
+            }
+
+            return RestaurantDtos;
+        }
+
+        [HttpGet]
+        public IHttpActionResult GetRestaurantsByOwner(int id)
+        {
+
+            // Create a new list to insert restaurants from database into
+            IEnumerable<OwnerxRestaurant> Oxrs = db.OwnerxRestaurants
+                .Where(oxr => oxr.OwnerID == id)
+                .ToList();
+            // Start a new list of restaurant data transfer objects
+            List<RestaurantDto> restaurantDtos = new List<RestaurantDto> { };
+
+            foreach (var Oxr in Oxrs)
+            {
+                // Loop through database and insert restaurant object attributes into DTO
+                RestaurantDto NewRestaurant = new RestaurantDto
+                {
+                    RestaurantID = Oxr.Restaurant.RestaurantID,
+                    RestaurantName = Oxr.Restaurant.RestaurantName,
+                    RestaurantAddress = Oxr.Restaurant.RestaurantAddress,
+                    RestaurantPhone = Oxr.Restaurant.RestaurantPhone,
+                    RestaurantCategory = Oxr.Restaurant.RestaurantCategory
+                };
+                // Add DTO to list then loop back
+                restaurantDtos.Add(NewRestaurant);
+            }
+
+            return Ok(restaurantDtos);
+        }
         /// <summary>
         /// Retrieves restaurant info from the database using a data transfer object
         /// </summary>
@@ -64,6 +121,7 @@ namespace RestoWebApp.Controllers
                 RestaurantName = RestaurantInfo.RestaurantName,
                 RestaurantAddress = RestaurantInfo.RestaurantAddress,
                 RestaurantPhone = RestaurantInfo.RestaurantPhone,
+                RestaurantCategory = RestaurantInfo.RestaurantCategory
             };
 
             if (SelectedRestaurant == null)

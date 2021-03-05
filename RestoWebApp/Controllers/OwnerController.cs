@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using RestoWebApp.Models;
+using RestoWebApp.Models.ViewModels;
 
 namespace RestoWebApp.Controllers
 {
@@ -35,13 +36,18 @@ namespace RestoWebApp.Controllers
         // GET: Owner/Details/5
         public ActionResult Details(int id)
         {
+            DetailsRestaurant ViewModel = new DetailsRestaurant();
             string url = "OwnerData/GetOwner/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                OwnerDto SelectedOwner = httpResponse.Content.ReadAsAsync<OwnerDto>().Result;
-                return View(SelectedOwner);
+                ViewModel.Owner = httpResponse.Content.ReadAsAsync<OwnerDto>().Result;
+
+                url = "restaurantData/GetRestaurantsByOwner/" + id;
+                httpResponse = client.GetAsync(url).Result;
+                ViewModel.Restaurants = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantDto>>().Result;
+                return View(ViewModel);
 
             }
             else

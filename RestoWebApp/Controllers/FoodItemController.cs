@@ -39,7 +39,6 @@ namespace RestoWebApp.Controllers
             string url = "fooditemdata/getfooditems";
             
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
-            //Debug.WriteLine(httpResponse);
             if (httpResponse.IsSuccessStatusCode)
             {
                 IEnumerable<FoodItemDto> FoodItemList = httpResponse.Content.ReadAsAsync<IEnumerable<FoodItemDto>>().Result;

@@ -33,7 +33,14 @@
         <dd>
             @Html.DisplayFor(model => model.RestaurantPhone)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RestaurantCategory)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.RestaurantCategory.RestaurantCategoryDesc)
+        </dd>
+        <a href="/Restaurant/Menu/@Model.RestaurantID">View Menu</a>
     </dl>
 </div>
 <p>

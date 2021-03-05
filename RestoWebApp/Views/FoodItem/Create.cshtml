@@ -7,20 +7,43 @@
 <h2>Create</h2>
 
 <form method="post" action="">
-    <label for="FoodItemName">Food Item Name</label>
-    <input type="text" name="FoodItemName" />
-    <label for="FoodItemDesc">Description</label>
-    <input type="text" name="FoodItemDesc" />
-    <label for="FoodItemPrice">Food Item Price</label>
-    <input type="text" name="FoodItemPrice" />
-    <label for="RestaurantID">Restaurant</label>
-    <select name="RestaurantID">
-        @foreach (var Restaurant in Model)
-        {
-            <option value="@Restaurant.RestaurantID">@Restaurant.RestaurantName</option>
-        }
-    </select>
-    <input type="submit" value="Create new item" />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="FoodItemName" class="control-label col-md-2">Food Item Name</label>
+            <div class="col-md-10">
+                <input type="text" name="FoodItemName" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FoodItemDesc" class="control-label col-md-2">Description</label>
+            <div class="col-md-10">
+                <input type="text" name="FoodItemDesc" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FoodItemPrice" class="control-label col-md-2">Food Item Price</label>
+            <div class="col-md-10">
+                <input type="text" name="FoodItemPrice" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RestaurantID" class="control-label col-md-2">Restaurant</label>
+            <div class="col-md-10">
+                <select name="RestaurantID" class="form-control">
+                    @foreach (var Restaurant in Model)
+                    {
+                        <option value="@Restaurant.RestaurantID">@Restaurant.RestaurantName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create new item" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+
 </form>
 
 <div>

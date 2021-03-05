@@ -13,5 +13,7 @@ namespace RestoWebApp.Models.ViewModels
         public IEnumerable<OwnerDto> RestaurantOwners { get; set; }
         // Pull full list of owners for checklist
         public IEnumerable<OwnerDto> OwnersList { get; set; }
+
+        public IEnumerable<RestaurantCategoryDto> RestaurantCategoryList { get; set; }
     }
 }

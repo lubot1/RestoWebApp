@@ -36,5 +36,7 @@ namespace RestoWebApp.Models
         public string OwnerAddress { get; set; }
         [DisplayName("Phone Number")]
         public string OwnerPhone { get; set; }
+
+        public IEnumerable<RestaurantDto> OwnedRestaurants { get; set; }
     }
 }

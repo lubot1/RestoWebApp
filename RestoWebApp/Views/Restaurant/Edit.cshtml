@@ -1,4 +1,4 @@
-﻿@model RestoWebApp.Models.RestaurantDto
+﻿@model RestoWebApp.Models.ViewModels.UpdateRestaurant
 
 @{
     ViewBag.Title = "Edit";
@@ -6,51 +6,48 @@
 
 <h2>Edit</h2>
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
+<form method="post" action="">
+    <input type="hidden" name="RestaurantID" value="@Model.Restaurant.RestaurantID" />
     <div class="form-horizontal">
-        <h4>Restaurant</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.RestaurantID)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.RestaurantName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label for="RestaurantName" class="control-label col-md-2">Restaurant Name</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RestaurantName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RestaurantName, "", new { @class = "text-danger" })
+                <input type="text" name="RestaurantName" class="form-control text-box single-line" value="@Model.Restaurant.RestaurantName"/>
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.RestaurantAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label for="RestaurantAddress" class="control-label col-md-2">Address</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RestaurantAddress, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RestaurantAddress, "", new { @class = "text-danger" })
+                <input type="text" name="RestaurantAddress" class="form-control text-box single-line" value="@Model.Restaurant.RestaurantAddress"/>
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.RestaurantPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label for="RestaurantPhone" class="control-label col-md-2">Phone Number</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RestaurantPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RestaurantPhone, "", new { @class = "text-danger" })
+                <input type="text" name="RestaurantPhone" class="form-control text-box single-line" value="@Model.Restaurant.RestaurantPhone"/>
             </div>
         </div>
-
+        <div class="form-group">
+            <label for="RestaurantCategoryID" class="control-label col-md-2">Category</label>
+            <div class="col-md-10">
+                <select name="RestaurantCategoryID" class="form-control">
+                    @foreach (var Category in Model.RestaurantCategoryList)
+                    {
+                        <option value="@Category.RestaurantCategoryID" @((Category.RestaurantCategoryID == Model.Restaurant.RestaurantCategory.RestaurantCategoryID)?"selected":"")>@Category.RestaurantCategoryDesc</option>
+                    }
+                </select>
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Update restaurant" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+</form>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List")
 </div>
 
 @section Scripts {

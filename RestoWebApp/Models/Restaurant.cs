@@ -19,7 +19,9 @@ namespace RestoWebApp.Models
 
         public string RestaurantPhone { get; set; }
 
-        //public ICollection<FoodItem> FoodItems { get; set; }
+        [ForeignKey("RestaurantCategory")]
+        public int RestaurantCategoryID { get; set; }
+        public virtual RestaurantCategory RestaurantCategory { get; set; }
     }
     public class RestaurantDto
     {
@@ -31,5 +33,9 @@ namespace RestoWebApp.Models
         [DisplayName("Phone Number")]
         public string RestaurantPhone { get; set; }
         public int OwnerID { get; set; }
+
+        public int RestaurantCategoryID { get; set; }
+        [DisplayName("Category")]
+        public virtual RestaurantCategory RestaurantCategory { get; set; }
     }
 }

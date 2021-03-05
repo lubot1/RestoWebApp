@@ -8,22 +8,44 @@
 
 <form method="post" action="">
     <input type="hidden" name="FoodItemID" value="@Model.FoodItem.FoodItemID" />
-    <label for="FoodItemName">Name</label>
-    <input type="text" name="FoodItemName" value="@Model.FoodItem.FoodItemName" />
-    <label for="FoodItemDesc">Description</label>
-    <input type="text" name="FoodItemDesc" value="@Model.FoodItem.FoodItemDesc" />
-    <label for="FoodItemPrice">Price</label>
-    <input type="text" name="FoodItemPrice" value="@Model.FoodItem.FoodItemPrice" />
-    <label for="RestaurantID">Restaurant</label>
-    <select name="RestaurantID">
-        @foreach (var Restaurant in Model.Restaurants)
-        {
-            <option value="@Restaurant.RestaurantID">@Restaurant.RestaurantName</option>
-        }
-    </select>
-    <input type="submit" value="Create new item" />
-</form>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="FoodItemName" class="control-label col-md-2">Food Item Name</label>
+            <div class="col-md-10">
+                <input type="text" name="FoodItemName" class="form-control text-box single-line" value="@Model.FoodItem.FoodItemName" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FoodItemDesc" class="control-label col-md-2">Description</label>
+            <div class="col-md-10">
+                <input type="text" name="FoodItemDesc" class="form-control text-box single-line" value="@Model.FoodItem.FoodItemDesc"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="FoodItemPrice" class="control-label col-md-2">Food Item Price</label>
+            <div class="col-md-10">
+                <input type="text" name="FoodItemPrice" class="form-control text-box single-line" value="@Model.FoodItem.FoodItemPrice" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RestaurantID" class="control-label col-md-2">Restaurant</label>
+            <div class="col-md-10">
+                <select name="RestaurantID" class="form-control">
+                    @foreach (var Restaurant in Model.Restaurants)
+                    {
+                        <option value="@Restaurant.RestaurantID">@Restaurant.RestaurantName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update item" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
 
+</form>
 <div>
     @Html.ActionLink("Back to List", "List")
 </div>

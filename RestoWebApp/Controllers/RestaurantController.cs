@@ -49,16 +49,57 @@ namespace RestoWebApp.Controllers
                 return RedirectToAction("Error");
             }
         }
-
-        // GET: Restaurant/List
-        public ActionResult List()
+        // GET: Restaurant/Menu/5
+        public ActionResult Menu(int id)
         {
-            string url = "restaurantdata/getrestaurants";
+            string url = "fooditemdata/getfooditemsbyrestaurant/" + id;
             HttpResponseMessage httpResponse = client.GetAsync(url).Result;
 
             if (httpResponse.IsSuccessStatusCode)
             {
+                IEnumerable<FoodItemDto> FoodItemList = httpResponse.Content.ReadAsAsync<IEnumerable<FoodItemDto>>().Result;
+
+                url = "restaurantdata/findrestaurant/" + id;
+                httpResponse = client.GetAsync(url).Result;
+                RestaurantDto selectedRestaurant = httpResponse.Content.ReadAsAsync<RestaurantDto>().Result;
+
+                ViewBag.RestaurantName = selectedRestaurant.RestaurantName;
+                return View(FoodItemList);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        // GET: Restaurant/List
+        public ActionResult List()
+        {
+            // Set the scope of these two important parameters
+            string url;
+            HttpResponseMessage httpResponse;
+
+            string id = Request.QueryString["RestaurantCategoryID"];
+            // Checks if a get parameter exists and loads appropriate data
+            if(id == null || id == "") {
+                url = "restaurantdata/getrestaurants";
+                httpResponse = client.GetAsync(url).Result;
+            }
+            else
+            {
+                url = "restaurantdata/GetRestaurantsByCategory/" + id;
+                httpResponse = client.GetAsync(url).Result;
+            }
+
+            if (httpResponse.IsSuccessStatusCode)
+            {
                 IEnumerable<RestaurantDto> RestaurantList = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantDto>>().Result;
+
+                ViewBag.RestaurantList = RestaurantList;
+
+                url = "restaurantcategorydata/getrestaurantcategories";
+                httpResponse = client.GetAsync(url).Result;
+                ViewBag.RestaurantCategoryList = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantCategoryDto>>().Result;
+
                 return View(RestaurantList);
             }
             else
@@ -66,7 +107,6 @@ namespace RestoWebApp.Controllers
                 return RedirectToAction("Error");
             }
         }
-
         // GET: Restaurant/Create
         public ActionResult Create()
         {
@@ -75,8 +115,14 @@ namespace RestoWebApp.Controllers
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                IEnumerable<OwnerDto> OwnerList = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
-                return View(OwnerList);
+                UpdateRestaurant ViewModel = new UpdateRestaurant();
+                ViewModel.OwnersList = httpResponse.Content.ReadAsAsync<IEnumerable<OwnerDto>>().Result;
+
+                url = "restaurantcategorydata/getrestaurantcategories";
+                httpResponse = client.GetAsync(url).Result;
+                ViewModel.RestaurantCategoryList = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantCategoryDto>>().Result;
+
+                return View(ViewModel);
             }
             else
             {
@@ -93,7 +139,8 @@ namespace RestoWebApp.Controllers
                 RestaurantID = NewRestaurantData.RestaurantID,
                 RestaurantAddress = NewRestaurantData.RestaurantAddress,
                 RestaurantName = NewRestaurantData.RestaurantName,
-                RestaurantPhone = NewRestaurantData.RestaurantPhone
+                RestaurantPhone = NewRestaurantData.RestaurantPhone,
+                RestaurantCategoryID = NewRestaurantData.RestaurantCategoryID
             };
 
             string url = "restaurantdata/addrestaurant";
@@ -130,9 +177,15 @@ namespace RestoWebApp.Controllers
 
             if (httpResponse.IsSuccessStatusCode)
             {
-                RestaurantDto SelectedRestaurant = httpResponse.Content.ReadAsAsync<RestaurantDto>().Result;
+                UpdateRestaurant ViewModel = new UpdateRestaurant();
 
-                return View(SelectedRestaurant);
+                ViewModel.Restaurant = httpResponse.Content.ReadAsAsync<RestaurantDto>().Result;
+
+                url = "restaurantcategorydata/getrestaurantcategories";
+                httpResponse = client.GetAsync(url).Result;
+                ViewModel.RestaurantCategoryList = httpResponse.Content.ReadAsAsync<IEnumerable<RestaurantCategoryDto>>().Result;
+
+                return View(ViewModel);
             }
             else
             {

@@ -1,57 +1,86 @@
-﻿@model RestoWebApp.Models.OwnerDto
+﻿@model RestoWebApp.Models.ViewModels.DetailsRestaurant
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>@Model.OwnerFirstName @Model.OwnerLastName Details</h2>
+<h2>@Model.Owner.OwnerFirstName @Model.Owner.OwnerLastName Details</h2>
 
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerFirstName)
+            @Html.DisplayNameFor(model => model.Owner.OwnerFirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OwnerFirstName)
+            @Html.DisplayFor(model => model.Owner.OwnerFirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerLastName)
+            @Html.DisplayNameFor(model => model.Owner.OwnerLastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OwnerLastName)
+            @Html.DisplayFor(model => model.Owner.OwnerLastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerEmail)
+            @Html.DisplayNameFor(model => model.Owner.OwnerEmail)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OwnerEmail)
+            @Html.DisplayFor(model => model.Owner.OwnerEmail)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerAddress)
+            @Html.DisplayNameFor(model => model.Owner.OwnerAddress)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OwnerAddress)
+            @Html.DisplayFor(model => model.Owner.OwnerAddress)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.OwnerPhone)
+            @Html.DisplayNameFor(model => model.Owner.OwnerPhone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.OwnerPhone)
+            @Html.DisplayFor(model => model.Owner.OwnerPhone)
         </dd>
 
     </dl>
+    <table class="table">
+        <tr>
+            <th>
+                Restaurant Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone Number
+            </th>
+        </tr>
+
+        @foreach (var restaurant in Model.Restaurants)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.RestaurantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.RestaurantAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => restaurant.RestaurantPhone)
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OwnerID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Owner.OwnerID }) |
     @Html.ActionLink("Back to List", "List")
 </p>

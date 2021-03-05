@@ -9,6 +9,17 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<form action="" method="get" name="CategorySearch">
+    <label for="RestaurantCategoryID">Category</label>
+    <select name="RestaurantCategoryID">
+        <option value="">All</option>
+        @foreach (var Category in ViewBag.RestaurantCategoryList)
+        {
+            <option value="@Category.RestaurantCategoryID">@Category.RestaurantCategoryDesc</option>
+        }
+    </select>
+    <input type="submit" value="Search" />
+</form>
 <table class="table">
     <tr>
         <th>
@@ -37,6 +48,7 @@
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.RestaurantID }) |
         @Html.ActionLink("Details", "Details", new { id = item.RestaurantID }) |
+        @Html.ActionLink("Menu", "Menu", new { id = item.RestaurantID }) |
         @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.RestaurantID })
     </td>
 </tr>

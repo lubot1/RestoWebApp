@@ -1,27 +1,60 @@
-﻿@model IEnumerable<RestoWebApp.Models.OwnerDto>
+﻿@model RestoWebApp.Models.ViewModels.UpdateRestaurant
 
 @{
     ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
-<form method="post" action="">
-    <label for="RestaurantName">Restaurant Name</label>
-    <input type="text" name="RestaurantName" />
-    <label for="RestaurantAddress">Restaurant Address</label>
-    <input type="text" name="RestaurantAddress" />
-    <label for="RestaurantPhone">Restaurant Phone</label>
-    <input type="text" name="RestaurantPhone" />
-    <label for="OwnerID">Owner</label>
-    <select name="OwnerID">
-        @foreach (var Owner in Model)
-        {
-            <option value="@Owner.OwnerID">@Owner.OwnerFirstName @Owner.OwnerLastName</option>
-        }
-    </select>
-    <input type="submit" value="Create new item" />
-</form>
 
+<form method="post" action="">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="RestaurantName" class="control-label col-md-2">Restaurant Name</label>
+            <div class="col-md-10">
+                <input type="text" name="RestaurantName" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RestaurantAddress" class="control-label col-md-2">Address</label>
+            <div class="col-md-10">
+                <input type="text" name="RestaurantAddress" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RestaurantPhone" class="control-label col-md-2">Phone Number</label>
+            <div class="col-md-10">
+                <input type="text" name="RestaurantPhone" class="form-control text-box single-line" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="OwnerID" class="control-label col-md-2">Owner</label>
+            <div class="col-md-10">
+                <select name="OwnerID" class="form-control">
+                    @foreach (var Owner in Model.OwnersList)
+                    {
+                        <option value="@Owner.OwnerID">@Owner.OwnerFirstName @Owner.OwnerLastName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RestaurantCategoryID" class="control-label col-md-2">Category</label>
+            <div class="col-md-10">
+                <select name="RestaurantCategoryID" class="form-control">
+                    @foreach (var Category in Model.RestaurantCategoryList)
+                    {
+                        <option value="@Category.RestaurantCategoryID">@Category.RestaurantCategoryDesc</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create new restaurant" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
 
 <div>
     @Html.ActionLink("Back to List", "List")
